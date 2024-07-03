@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Connect</title>
+    <style>
+        #industryContainer p {
+            display: inline-block;
+            margin-right: 10px; /* Adjust as needed */
+        }
+        #skillContainer p {
+            display: inline-block;
+            margin-right: 10px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>Career Connect</h1>
+    <h2>Advanced Queries</h2>
+    <p>Enter the query number and other parameters to query the database.</p>
+    <p><b>Query 1:</b> Get the average rating of companies in a specific industry. Input is the industry.</p>
+    <p><b>Query 2:</b> Get the job titles and minimum salary of companies that require a specific skill. Input is minimum salary and skill list.</p>
+    <p><b>Query 3:</b> Get the job titles and company of the job postings that match a certain class. Input is course subject and number.</p>
+    <p><b>Query 4:</b> Get the company names and respective interview difficulties. Interview difficulty is from 1 to 3. Input is the industry. </p>
+    <p>Note: for industry, you do not need to enter the full industry name, you can enter a substring. </p>
+    <label for="queryNumber">Query Number:</label>
+    <input type="text" id="queryNumber" name="queryNumber"><br><br>
+
+    <label for="industry">Industry:</label>
+    <input type="text" id="industry" name="industry">
+    <button id="industryButton">Show Industries</button><br><br>
+    <button id="hideIndustryButton" style="display: none;">Hide Industries</button>
+    <div id="industryContainer"></div><br>
+
+    <label for="skillList">Skill List:</label>
+    <input type="text" id="skillList" name="skillList">
+    <button id="skillButton">Show Skills</button><br><br>
+    <button id="hideSkillButton" style="display: none;">Hide Skills</button>
+    <div id="skillContainer"></div><br>
+
+    <label for="minSalary">Minimum Salary:</label>
+    <input type="text" id="minSalary" name="minSalary"><br><br>
+
+    <label for="courseSubject">Course Subject:</label>
+    <input type="text" id="courseSubject" name="courseSubject"><br><br>
+    
+    <label for="courseNumber">Course Number:</label>
+    <input type="text" id="courseNumber" name="courseNumber"><br><br>
+
+    
+    
+    <button id="queryButton">Query</button><br><br>
+    <button id="hideDataButton" style="display: none;">Hide Data</button>
+    <div id="dataContainer"></div>
+    
+    <h2>NLP Job-Course Matching</h2>
+    <p>Enter a keyword to obtain a list of Job ID's, Titles, and Companies</p>
+    <p>Enter the Job ID into the search box, and you will receive a list of courses</p>
+
+    <label for="keyword">Job Keyword:</label>
+    <input type="text" id="keyword" name="keyword">
+    <button id="keywordButton">Search</button><br><br>
+    <button id="hideKeywordButton" style="display: none;">Hide Data</button>
+    <div id="keywordContainer"></div>
+
+    <label for="jobLookup">Job Lookup by ID:</label>
+    <input type="text" id="jobLookup" name="jobLookup">
+    <button id="jobLookupButton">Search</button><br><br>
+    <button id="hideJobLookupButton" style="display: none;">Hide Data</button>
+    <div id="jobLookupContainer"></div>
+
+    <button id="TransactionButton">Remote Job Transaction</button><br><br>
+
+    <label for="jobId">NLP Match, enter Job ID:</label>
+    <input type="text" id="jobId" name="jobId">
+    <button id="jobIdButton">Search</button><br><br>
+    <button id="hideJobIdButton" style="display: none;">Hide Data</button>
+    <div id="jobIdContainer"></div>
+
+    
+
+    <h2>Create, Update, and Delete From Databases</h2>
+
+    <h3>Courses</h3>
+
+    <label for = "courseLookup">Course Lookup by Subject:</label>
+    <input type="text" id="courseLookup" name="courseLookup">
+    <button id="courseLookupButton">Search</button><br><br>
+    <button id="hideCourseLookupButton" style="display: none;">Hide Data</button>
+    <div id="courseLookupContainer"></div>
+
+    <form id="courseForm">
+        <label for="CRN">CRN:</label>
+        <input type="text" id="CRN" name="CRN"><br><br>
+
+        <label for="Year">Year:</label>
+        <input type="text" id="Year" name="Year"><br><br>
+
+        <label for="Term">Term:</label>
+        <input type="text" id="Term" name="Term"><br><br>
+
+        <label for="Subject">Subject:</label>
+        <input type="text" id="Subject" name="Subject"><br><br>
+
+        <label for="Number">Number:</label>
+        <input type="text" id="Number" name="Number"><br><br>
+
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" name="Name"><br><br>
+
+        <label for="Description">Description:</label>
+        <input type="text" id="Description" name="Description"><br><br>
+
+        <label for="CreditHours">CreditHours:</label>
+        <input type="text" id="CreditHours" name="CreditHours"><br><br>
+
+        <button type="button" onclick="insertCourse()">Insert Course</button>
+
+        <button type="button" onclick="updateCourse()">Update Course</button>
+
+        <button type="button" onclick="deleteCourse()">Delete Course</button>
+    </form>
+
+    <h3>Jobs</h3>
+
+    <form id="jobForm">
+        <label for="JobId">Job ID:</label>
+        <input type="text" id="JobId" name="JobId"><br><br>
+
+        <label for="CompanyId">Company ID:</label>
+        <input type="text" id="CompanyId" name="CompanyId"><br><br>
+
+        <label for="Title">Title:</label>
+        <input type="text" id="Title" name="Title"><br><br>
+
+        <label for="Description">Description:</label><br>
+        <textarea id="Description" name="Description"></textarea><br><br>
+
+        <label for="FormattedWorkType">Formatted Work Type:</label>
+        <input type="text" id="FormattedWorkType" name="FormattedWorkType"><br><br>
+
+        <label for="Location">Location:</label>
+        <input type="text" id="Location" name="Location"><br><br>
+
+        <label for="RemoteAllowed">Remote Allowed:</label>
+        <input type="text" id="RemoteAllowed" name="RemoteAllowed"><br><br>
+
+        <label for="JobPostingUrl">Job Posting URL:</label>
+        <input type="text" id="JobPostingUrl" name="JobPostingUrl"><br><br>
+
+        <label for="Sponsored">Sponsored:</label>
+        <input type="text" id="Sponsored" name="Sponsored"><br><br>
+
+        <label for="WorkType">Work Type:</label>
+        <input type="text" id="WorkType" name="WorkType"><br><br>
+
+        <button type="button" onclick="insertJob()">Insert Job Posting</button>
+        <button type="button" onclick="updateJob()">Update Job Posting</button>
+        <button type="button" onclick="deleteJob()">Delete Job Posting</button>
+    </form>
+
+    <h3>Companies</h3>
+
+    <label for="CompanyLookup">Company Lookup by Name:</label>
+    <input type="text" id="CompanyLookup" name="CompanyLookup">
+    <button id="companyLookupButton">Search</button><br><br>
+    <button id="hideCompanyLookupButton" style="display: none;">Hide Data</button>
+    <div id="companyLookupContainer"></div>
+
+    <form id="companyForm">
+        <label for="CompanyId">Company ID:</label>
+        <input type="text" id="CompanyId" name="CompanyId"><br><br>
+        
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" name="Name"><br><br>
+        
+        <label for="Description">Description:</label>
+        <input type="text" id="Description" name="Description"><br><br>
+        
+        <label for="CompanySize">Company Size:</label>
+        <input type="text" id="CompanySize" name="CompanySize"><br><br>
+        
+        <label for="State">State:</label>
+        <input type="text" id="State" name="State"><br><br>
+        
+        <label for="Country">Country:</label>
+        <input type="text" id="Country" name="Country"><br><br>
+        
+        <label for="City">City:</label>
+        <input type="text" id="City" name="City"><br><br>
+        
+        <label for="ZipCode">Zip Code:</label>
+        <input type="text" id="ZipCode" name="ZipCode"><br><br>
+        
+        <label for="Address">Address:</label>
+        <input type="text" id="Address" name="Address"><br><br>
+        
+        <label for="Url">URL:</label>
+        <input type="text" id="Url" name="Url"><br><br>
+        
+        <button type="button" onclick="insertCompany()">Insert Company</button>
+        <button type="button" onclick="updateCompany()">Update Company</button>
+        <button type="button" onclick="deleteCompany()">Delete Company</button>
+    </form>
+
+
+    <script>
+        function insertCompany() {
+            const formData = new FormData(document.getElementById('companyForm'));
+            fetch('/insert_company', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Company inserted successfully!');
+                } else {
+                    console.error('Failed to insert company.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateCompany() {
+            const formData = new FormData(document.getElementById('companyForm'));
+            fetch('/update_company', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Company updated successfully!');
+                } else {
+                    console.error('Failed to update company.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function deleteCompany() {
+            const formData = new FormData(document.getElementById('companyForm'));
+            fetch('/delete_company', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Company deleted successfully!');
+                } else {
+                    console.error('Failed to delete company.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function insertJob() {
+            const formData = new FormData(document.getElementById('jobForm'));
+            fetch('/insert_job', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Job inserted successfully!');
+                } else {
+                    console.error('Failed to insert job.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateJob() {
+            const formData = new FormData(document.getElementById('jobForm'));
+            fetch('/update_job', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Job updated successfully!');
+                } else {
+                    console.error('Failed to update job.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function deleteJob() {
+            const formData = new FormData(document.getElementById('jobForm'));
+            fetch('/delete_job', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Job deleted successfully!');
+                } else {
+                    console.error('Failed to delete job.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateCourse() {
+            const formData = new FormData(document.getElementById('courseForm'));
+
+            fetch('/update_courses', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Data updated successfully!');
+                } else {
+                    console.error('Failed to update data.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function insertCourse() {
+            const formData = new FormData(document.getElementById('courseForm'));
+
+            fetch('/insert_courses', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Data inserted successfully!');
+                } else {
+                    console.error('Failed to insert data.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function deleteCourse() {
+            const formData = new FormData(document.getElementById('courseForm'));
+
+            fetch('/delete_courses', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Data deleted successfully!');
+                } else {
+                    console.error('Failed to delete data.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById("TransactionButton").addEventListener("click", function() {
+            const jobLookup = document.getElementById("jobLookup").value;
+            fetch(`/remote_job_transaction?job_id=${jobLookup}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // Parse response JSON
+                    } else {
+                        throw new Error('Failed to perform remote job transaction.');
+                    }
+                })
+                .then(data => {
+                    console.log('Transaction successful:', data.message);
+                    // Display message on the website indicating transaction success
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+
+        document.getElementById("companyLookupButton").addEventListener("click", function() {
+            //document.getElementById("companyLookupContainer").style.display = "block";
+            document.getElementById("hideCompanyLookupButton").style.display = "inline-block";
+            document.getElementById("companyLookupButton").style.display = "none";
+            const companyLookup = document.getElementById("CompanyLookup").value;
+
+            fetch(`/company_lookup?company_name=${companyLookup}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<p>Company ID: ${item.CompanyId}, Name: ${item.Name}, Description: ${item.Description}, Company Size: ${item.CompanySize}, State: ${item.State}, Country: ${item.Country}, City: ${item.City}, Zip Code: ${item.ZipCode}, Address: ${item.Address}, URL: ${item.Url}</p>`;
+                    });
+
+                    document.getElementById("companyLookupContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideCompanyLookupButton").addEventListener("click", function() {
+            document.getElementById("companyLookupContainer").style.display = "none";
+            document.getElementById("hideCompanyLookupButton").style.display = "none";
+            document.getElementById("companyLookupButton").style.display = "inline-block";
+        });
+
+        document.getElementById("courseLookupButton").addEventListener("click", function() {
+            //document.getElementById("courseLookupContainer").style.display = "block";
+            document.getElementById("hideCourseLookupButton").style.display = "inline-block";
+            document.getElementById("courseLookupButton").style.display = "none";
+            const courseLookup = document.getElementById("courseLookup").value;
+
+            fetch(`/course_lookup?course_subject=${courseLookup}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<p>Number: ${item.Number}, Name: ${item.Name}, CRN: ${item.CRN}</p>`;
+                    });
+
+                    document.getElementById("courseLookupContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideCourseLookupButton").addEventListener("click", function() {
+            document.getElementById("courseLookupContainer").style.display = "none";
+            document.getElementById("hideCourseLookupButton").style.display = "none";
+            document.getElementById("courseLookupButton").style.display = "inline-block";
+        });
+
+        document.getElementById("jobLookupButton").addEventListener("click", function() {
+            //document.getElementById("jobLookupContainer").style.display = "block";
+            document.getElementById("hideJobLookupButton").style.display = "inline-block";
+            document.getElementById("jobLookupButton").style.display = "none";
+            const jobLookup = document.getElementById("jobLookup").value;
+
+            fetch(`/job_lookup?job_id=${jobLookup}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<b>Title:</b> ${item.Title}, <b>Company:</b> ${item.Name}, <b>Description:</b> ${item.Description}, <b>Job URL:</b> ${item.JobPostingUrl}, <b>Location:</b> ${item.Location}</p>`;
+                    });
+
+                    document.getElementById("jobLookupContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideJobLookupButton").addEventListener("click", function() {
+            document.getElementById("jobLookupContainer").style.display = "none";
+            document.getElementById("hideJobLookupButton").style.display = "none";
+            document.getElementById("jobLookupButton").style.display = "inline-block";
+        });
+
+        document.getElementById("jobIdButton").addEventListener("click", function() {
+            //document.getElementById("jobIdContainer").style.display = "block";
+            document.getElementById("hideJobIdButton").style.display = "inline-block";
+            document.getElementById("jobIdButton").style.display = "none";
+            const jobId = document.getElementById("jobId").value;
+
+            fetch(`/nlp?job_id=${jobId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<p>Course: ${item.Subject}${item.Number}, Name: ${item.Name}, Similarity: ${item.Similarity}</p>`;
+                    });
+
+                    document.getElementById("jobIdContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideJobIdButton").addEventListener("click", function() {
+            document.getElementById("jobIdContainer").style.display = "none";
+            document.getElementById("hideJobIdButton").style.display = "none";
+            document.getElementById("jobIdButton").style.display = "inline-block";
+        });
+
+        document.getElementById("keywordButton").addEventListener("click", function() {
+            document.getElementById("keywordContainer").style.display = "block";
+            document.getElementById("hideKeywordButton").style.display = "inline-block";
+            document.getElementById("keywordButton").style.display = "none";
+            const keyword = document.getElementById("keyword").value;
+
+            fetch(`/search?keyword=${keyword}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<p>Job ID: ${item.JobId}, Company: ${item.Name}, Title: ${item.Title}</p>`;
+                    });
+
+                    document.getElementById("keywordContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideKeywordButton").addEventListener("click", function() {
+            document.getElementById("keywordContainer").style.display = "none";
+            document.getElementById("hideKeywordButton").style.display = "none";
+            document.getElementById("keywordButton").style.display = "inline-block";
+        });
+
+        document.getElementById("industryButton").addEventListener("click", function() {
+            document.getElementById("industryContainer").style.display = "block";
+            document.getElementById("hideIndustryButton").style.display = "inline-block";
+            document.getElementById("industryButton").style.display = "none";
+            fetch('/industries')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<p>${item.Industry}, </p>`;
+                    });
+
+                    document.getElementById("industryContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideIndustryButton").addEventListener("click", function() {
+            document.getElementById("industryContainer").style.display = "none";
+            document.getElementById("hideIndustryButton").style.display = "none";
+            document.getElementById("industryButton").style.display = "inline-block";
+        });
+
+        document.getElementById("skillButton").addEventListener("click", function() {
+            document.getElementById("skillContainer").style.display = "block";
+            document.getElementById("hideSkillButton").style.display = "inline-block";
+            document.getElementById("skillButton").style.display = "none";
+            fetch('/skills')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        html += `<p>${item.SkillName}, </p>`;
+                    });
+
+                    document.getElementById("skillContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideSkillButton").addEventListener("click", function() {
+            document.getElementById("skillContainer").style.display = "none";
+            document.getElementById("hideSkillButton").style.display = "none";
+            document.getElementById("skillButton").style.display = "inline-block";
+        });
+        
+        document.getElementById("queryButton").addEventListener("click", function() {
+            document.getElementById("dataContainer").style.display = "block";
+            document.getElementById("hideDataButton").style.display = "inline-block";
+            document.getElementById("queryButton").style.display = "none";
+            const queryNumber = document.getElementById("queryNumber").value;
+            const industry = document.getElementById("industry").value;
+            const minSalary = document.getElementById("minSalary").value;
+            const skillList = document.getElementById("skillList").value;
+            const courseSubject = document.getElementById("courseSubject").value;
+            const courseNumber = document.getElementById("courseNumber").value;
+
+            let url = `/query?query_number=${queryNumber}`;
+
+            if (industry) {
+                url += `&industry=${industry}`;
+            }
+
+            if (minSalary) {
+                url += `&min_salary=${minSalary}`;
+            }
+
+            if (skillList) {
+                url += `&skill_list=${skillList}`;
+            }
+
+            if (courseSubject) {
+                url += `&course_subject=${courseSubject}`;
+            }
+
+            if (courseNumber) {
+                url += `&course_number=${courseNumber}`;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    
+                    let html = '';
+
+                    data.forEach(item => {
+                        if (queryNumber === '1') {
+                            html += `<p>Company: ${item.Name}, Avg Rating: ${item.AvgRating}</p>`;
+                        } else if (queryNumber === '2') {
+                            html += `<p>Company: ${item.CompanyName}, Job Title: ${item.JobTitle}, Minimum Salary: ${item.MinSalary}</p>`;
+                        } else if (queryNumber === '3') {
+                            html += `<p>Company: ${item.CompanyName}, Job Title: ${item.JobTitle}</p>`;
+                        } else if (queryNumber === '4') {
+                            html += `<p>Company: ${item.CompanyName}, Interview Difficulty: ${item.AverageDifficultyRating}, Number of Rating: ${item.NumberOfRatings}</p>`;
+                        }
+                    });
+
+                    document.getElementById("dataContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while fetching data from the server.');
+                });
+        });
+
+        document.getElementById("hideDataButton").addEventListener("click", function() {
+            document.getElementById("dataContainer").style.display = "none";
+            document.getElementById("hideDataButton").style.display = "none";
+            document.getElementById("queryButton").style.display = "inline-block";
+        });
+    </script>
+</body>
+</html>
